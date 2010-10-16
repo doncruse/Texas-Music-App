@@ -1,12 +1,10 @@
 class BrowseController < ApplicationController
 
   def index
-    
     @city_options = Band.select("DISTINCT city").map(&:city).sort
     @genre_options = Genre.select("DISTINCT name").map(&:name).sort
     @city = nil
     @genre = nil
-    
     return unless request.post?
     
     if params[:genre] != ""
@@ -15,7 +13,6 @@ class BrowseController < ApplicationController
     if params[:city] != ""
       @city = params[:city]
     end
-    
     if @city and @genre
       @result = Band.where(:city => @city).order("name ASC").joins(:genres) & Genre.where("genres.name = ?", @genre)
     elsif @city
@@ -23,6 +20,15 @@ class BrowseController < ApplicationController
     elsif @genre
       @result = Band.order("name ASC").joins(:genres) & Genre.where(:name => @genre)
     end
+  end
+
+  def search
+    return unless request.post?
+    unless params[:search_term] and (params[:search_term] != "")
+      return
+    end
+    
+    
     
   end
 
