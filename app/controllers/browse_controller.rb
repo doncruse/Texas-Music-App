@@ -1,10 +1,11 @@
 class BrowseController < ApplicationController
-
+  autocomplete :bands, :name, :full => true
+  before_filter :preload_dropdown_options, :only => [:index, :search]
+  
   def index
-    @city_options = Band.select("DISTINCT city").map(&:city).sort
-    @genre_options = Genre.select("DISTINCT name").map(&:name).sort
     @city = nil
     @genre = nil
+    @search_term = nil
     return unless request.post?
     
     if params[:genre] != ""
@@ -23,16 +24,25 @@ class BrowseController < ApplicationController
   end
 
   def search
-    return unless request.post?
     unless params[:search_term] and (params[:search_term] != "")
+      redirect_to '/'
       return
     end
-    
-    
-    
+    @search_term = params[:search_term]
+    @result = Band.where("name LIKE ?", "%#{params[:search_term]}%")
+    @city = nil
+    @genre = nil
+    render :action => :index
   end
 
   def show
+  end
+
+protected
+
+  def preload_dropdown_options
+    @city_options = Band.select("DISTINCT city").map(&:city).sort
+    @genre_options = Genre.select("DISTINCT name").map(&:name).sort
   end
 
 end

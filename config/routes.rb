@@ -1,9 +1,7 @@
 Texasmusic::Application.routes.draw do
-
-  match '/' => "browse#index"
-
-  get "browse/index"
-  get "browse/show"
+#  match "browse/index" => "browse#index"
+  match "browse/show" => "browse#show"
+  match "browse/search" => "browse#search"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -60,5 +58,6 @@ Texasmusic::Application.routes.draw do
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id(.:format)))'
+  match ':controller(/:action(/:id(.:format)))'
+  match '/' => "browse#index"
 end

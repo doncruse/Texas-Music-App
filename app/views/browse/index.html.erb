@@ -2,22 +2,25 @@
 <h2>Search by city or musical genre</h2>
 
 
-
-<div class="clear"></div>
 <% form_tag({ :action => "index"}, :method => :post ) do %>
-<div class="grid_2">&nbsp;</div>
-<div class="grid_3">
+
 <%= select_tag("city", options_for_select(@city_options, @city), :include_blank => true, :class => "table_form") %>
-</div>
-<div class="grid_2">
+
 <%= select_tag("genre", options_for_select(@genre_options, @genre), :include_blank => true, :class => "table_form") %>
-</div>
-<div class="grid_1">
-	<%= submit_tag "Search", :id => "submit", :name => "submit", :class => "table_form", :disabled => false %>
-&nbsp;
-</div>
+
+<%= submit_tag "Browse", :id => "submit", :name => "submit", :class => "table_form", :disabled => false %>
+
 <% end %>
 
+<h2>... Or search by band name</h2>
+
+<% form_tag({ :action => "search" }) do %>
+	<%#= text_field_tag :search_term %>
+	<%= autocomplete_field_tag :search_term, "", "browse/autocomplete_bands_name" %>
+	<%= submit_tag "Search", :id => "submit2", :name => "submit2", :class => "table_form" %>
+<% end %>
+
+<p></p>
 
 <% if @result %>
 
@@ -34,14 +37,3 @@
 <% end %>
 
 <% end %>
-
-<%#= @result.inspect %>
-
-
-<p></p>
-
-Band name
-city
-each genre
-each URL
-contact info
