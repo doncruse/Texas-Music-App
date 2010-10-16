@@ -17,11 +17,11 @@ class BrowseController < ApplicationController
     end
     
     if @city and @genre
-      @result = Band.where(:city => @city).joins(:genres) & Genre.where("genres.name = ?", @genre)
+      @result = Band.where(:city => @city).order("name ASC").joins(:genres) & Genre.where("genres.name = ?", @genre)
     elsif @city
-      @result = Band.where(:city => @city)
+      @result = Band.where(:city => @city).order("name ASC")
     elsif @genre
-      @result = Band.joins(:genres) & Genre.where(:name => @genre)
+      @result = Band.order("name ASC").joins(:genres) & Genre.where(:name => @genre)
     end
     
   end
