@@ -3,7 +3,7 @@ class BrowseController < ApplicationController
   def index
     
     @city_options = Band.select("DISTINCT city").map(&:city).sort
-    @genre_options = Genre.all.map(&:name).sort
+    @genre_options = Genre.select("DISTINCT name").map(&:name).sort
     @city = nil
     @genre = nil
     
@@ -17,11 +17,11 @@ class BrowseController < ApplicationController
     end
     
     if @city and @genre
-      @result = Band.find_all_by_city(@city).select { |x| x.genres.map(&:name).include?(@genre)}
+      @result = Band.where(:city => @city).joins(:genres) & Genre.where("genres.name = ?", @genre)
     elsif @city
-      @result = Band.find_all_by_city(@city)
+      @result = Band.where(:city => @city)
     elsif @genre
-      @result = Genre.find_by_name(@genre).bands
+      @result = Band.joins(:genres) & Genre.where(:name => @genre)
     end
     
   end
