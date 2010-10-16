@@ -1,8 +1,15 @@
 Texasmusic::Application.routes.draw do
+  get "autocomplete_searches/Index"
+
 #  match "browse/index" => "browse#index"
   match "browse/show" => "browse#show"
   match "browse/search" => "browse#search"
 
+  resources :bands do
+    get :autocomplete_band_name, :on => :collection
+  end
+
+  resources :autocomplete_searches, :only => [:index], :as => 'autocomplete'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

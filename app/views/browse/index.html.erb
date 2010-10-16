@@ -15,18 +15,14 @@
 <h2>... Or search by band name</h2>
 
 <% form_tag({ :action => "search" }) do %>
-	<%#= text_field_tag :search_term %>
-	<%= autocomplete_field_tag :search_term, "", "browse/autocomplete_bands_name" %>
+	<%= text_field_tag :search_term %>
+	<%#= autocomplete_field_tag :search_term, autocomplete_band_name_browse_path %>
 	<%= submit_tag "Search", :id => "submit2", :name => "submit2", :class => "table_form" %>
 <% end %>
 
 <p></p>
 
 <% if @result %>
-
-<p>City is <%= @city %></p>
-
-<p>Genre is <%= @genre %></p>
 
 <% @result.each do |one_band| %>
 	<div style="border: 1px solid #333; padding: 2px 3px; margin-bottom: 10px; background-color: #fffae0;">
