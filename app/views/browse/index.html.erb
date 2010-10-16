@@ -27,7 +27,7 @@
 		<% unless @city %><div class="cityName"><%= one_band.city %></div><% end %></div>
 
 		<% one_band.band_links.each do |one_link| %>
-			<%= link_to one_link.url, one_link.url %><br />
+			<%= link_to one_link.url, one_link.url, :target => "_blank" %><br />
 		<% end %>
 
 		

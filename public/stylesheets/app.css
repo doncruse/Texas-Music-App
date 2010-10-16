@@ -72,7 +72,6 @@ select {
 }
 
 #resultItem {
-
 	background-color: #ebebeb;
 	border: 1px solid #666666;
 	padding: 10px 30px 5px;
@@ -82,6 +81,9 @@ select {
 	text-align: left;
 	margin: auto;
 	margin-bottom: 5px;
+	
+	border-radius: 12px;
+	-moz-border-radius: 12px;
 }
 
 #resultItem h3 {
