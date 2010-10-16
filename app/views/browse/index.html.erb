@@ -10,7 +10,7 @@
 <% end %>
 
 <h3>... Or search by band name</h3>
-<% form_tag({ :action => "search" }) do %>
+<% form_tag({ :action => "search" }, :method => :post) do %>
 	<%= text_field_tag :search_term %>
 	<%#= autocomplete_field_tag :search_term, autocomplete_band_name_browse_path %>
 	<%= submit_tag "Search", :id => "submit2", :name => "submit2", :class => "table_form" %>
