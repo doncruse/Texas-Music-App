@@ -1,15 +1,7 @@
 Texasmusic::Application.routes.draw do
-  get "autocomplete_searches/Index"
-
-#  match "browse/index" => "browse#index"
   match "browse/show" => "browse#show"
   match "browse/search" => "browse#search"
 
-  resources :bands do
-    get :autocomplete_band_name, :on => :collection
-  end
-
-  resources :autocomplete_searches, :only => [:index], :as => 'autocomplete'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -65,6 +57,7 @@ Texasmusic::Application.routes.draw do
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
-  match ':controller(/:action(/:id(.:format)))'
-  match '/' => "browse#index"
+#  match ':controller(/:action(/:id(.:format)))'
+
+  root :to => "browse#index"
 end

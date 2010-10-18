@@ -1,5 +1,4 @@
 class BrowseController < ApplicationController
-  autocomplete :band, :name, :full => true
   before_filter :preload_dropdown_options, :only => [:index, :search]
   
   def index
