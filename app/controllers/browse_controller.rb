@@ -7,11 +7,16 @@ class BrowseController < ApplicationController
     @search_term = nil
     return unless request.post?
     
-    if params[:genre] != ""
-      @genre = params[:genre]
-    end
     if params[:city] != ""
       @city = params[:city]
+    end
+    if params[:genre] != ""
+      @genre = params[:genre]
+    elsif @city
+      # temporary until navitation is smarter --> this redirects you to /city
+      # if you have entered only a city but not a genre
+      redirect_to :action => :city, :city => @city
+      #return
     end
     if @city and @genre
       @result = Band.in_city(@city).order("name ASC").joins(:genres) & Genre.where("genres.name = ?", @genre)
