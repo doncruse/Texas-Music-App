@@ -109,3 +109,73 @@ select {
 /* 	padding-top: 20px;*/
 	margin-left: 10px;
 }
+
+
+#genre_cloud_box { 
+	margin-top: 5px;
+	text-align: center;
+	width: 65%;
+	margin: 5px auto;
+}
+
+#countTable {
+	text-align: center;
+	color: #333;
+	background-color: #ddd;
+	padding: 6px 3px;
+	border: 1px solid #333;
+	-moz-box-shadow: 2px 2px 2px #333;
+	-webkit-box-shadow: 2px 2px 2px #333;
+	width: 50%;
+	margin: 30px auto 0px;
+}
+
+#countTable p { margin: 0; padding: 0;}
+
+.genre_cloud_entry {
+	background-color: #fff;
+	color: #333;
+	-moz-box-shadow: 2px 2px 2px #333;
+	-webkit-box-shadow: 2px 2px 2px #333;
+	display: inline;
+	margin-right: 10px;
+	padding: 2px 3px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+
+.genre_cloud_entry a, .genre_cloud_entry a:hover, .genre_cloud_entry a:visited { color: #333; text-decoration: none;}
+
+div#selected {
+	padding: 4px 6px;
+	background-color: yellow;
+	font-weight: bold;
+}
+
+div#reset_button {
+	background-color: #069;
+	color: #fff;
+}
+
+div#reset_button a, div#reset_button a:hover, div#reset_button a:visited { color: #fff; }
+
+.size_1 {
+	font-size: 0.8em;
+}
+
+.size_2 {
+	font-size: 1.0em;
+}
+
+.size_3 {
+	font-size: 1.2em;
+}
+
+.size_4 {
+	font-size: 1.4em;
+}
+
+.size_5 {
+	font-size: 1.6em;
+}
+

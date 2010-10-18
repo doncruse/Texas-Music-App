@@ -1,0 +1,12 @@
+<div id="genre_cloud_box">
+<% for genre in cloud.keys.sort %>
+<% if @genre == genre %>
+<div class="genre_cloud_entry size_<%= cloud[genre] %>" id="selected">
+<% else %>
+<div class="genre_cloud_entry size_<%= cloud[genre] %>">
+<% end %>
+	<%= link_to genre, :controller => :browse, :action => :city, :city => @city, :genre => genre %>
+</div>
+<% end %>
+<% if @genre %><br /><br /><div class="genre_cloud_entry size_1" id="reset_button"><%= link_to "Reset - Show All Genres", :controller => :browse, :action => :city, :city => @city %></div><% end %>
+</div>

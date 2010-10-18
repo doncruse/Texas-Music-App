@@ -20,20 +20,6 @@
 
 <% if @result %>
 <div id="resultsTable">
-
-<% @result.each do |one_band| %>
-	<div id="resultItem">
-		<div class="genreBox"><%= one_band.genres.map(&:name).sort.join(", ") %></div>
-		<div class="band_name"><h3><%= one_band.name %></h3>
-		<% unless @city %><div class="cityName"><%= one_band.city %></div><% end %></div>
-
-		<% one_band.band_links.each do |one_link| %>
-			<%= link_to one_link.url, one_link.url, :target => "_blank" %><br />
-		<% end %>
-
-		<% if one_band.contact_info %><div class="bookingContact">Contact: <%= one_band.contact_info %></div><% end %>
-		<br clear="all" />
-	</div>
-<% end %>
-
+	<%= render :partial => "results_table", :locals => { :result => @result } %>
+</div>
 <% end %>

@@ -1,6 +1,7 @@
 Texasmusic::Application.routes.draw do
-  match "browse/show" => "browse#show"
-  match "browse/search" => "browse#search"
+#  match "browse/show" => "browse#show"
+  match "search" => "browse#search"
+  match "city" => "browse#city"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

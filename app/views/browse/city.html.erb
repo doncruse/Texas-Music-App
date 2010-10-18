@@ -1,0 +1,28 @@
+<div id="searchTable">
+<h1>Find a Texas Band</h1>
+<% form_tag({ :action => "city"}, :method => :post ) do %>
+<p>Select a city:</p>
+<%= select_tag("city", options_for_select(@city_options, @city), :include_blank => true, :class => "table_form") %>
+<%= submit_tag "Focus on that City", :id => "submit", :name => "submit", :class => "table_form", :disabled => false %>
+<% end %>
+<% if @genre_cloud %>
+<p>Select a genre to focus your results:</p>
+</div>
+<div id="genreCloud">
+<%= render :partial => "genre_cloud", :locals => { :cloud => @genre_cloud, :selected => @genre }%>
+</div>
+<% else %>
+</div>
+<% end %>
+
+<% if @city_count %>
+<div id="countTable">
+<p><%= report_relevant_totals %></p>
+</div>
+<% end %>
+
+<% if @result %>
+<div id="resultsTable">
+	<%= render :partial => "results_table", :locals => { :result => @result } %>
+</div>
+<% end %>
