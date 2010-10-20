@@ -1,5 +1,5 @@
 <div id="searchTable">
-<h1>Find a Texas Band</h1>
+<h1><a href="/">Find a Texas Band</a></h1>
 <% form_tag({ :action => "filter"}, :method => :post ) do %>
 <p>Select a city:</p>
 <%= select_tag("city", options_for_select(@city_options, @city), :include_blank => false, :class => "table_form") %>

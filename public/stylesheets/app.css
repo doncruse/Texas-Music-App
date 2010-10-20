@@ -10,6 +10,8 @@ a:link, a:visited {
 	color: #F60;
 }
 
+h1 a:link, h1 a:visited { color: #fff; text-decoration: none;}
+
 h4 {
 	margin-bottom: 3px;
 }
