@@ -4,7 +4,7 @@ module BrowseHelper
     if @city_count.nil? and @genre.nil?
       return ""
     elsif @city_count.nil?
-      return "There #{are_is(@genre_count)} #{pluralize (@genre_count, 'band')} in that genre"
+      return "There #{are_is(@genre_count)} #{pluralize(@genre_count, 'band')} in that genre"
     elsif @genre.nil?
       return "There #{are_is(@city_count)} #{pluralize(@city_count, 'band')} in #{@city}"
     else
