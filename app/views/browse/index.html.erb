@@ -18,6 +18,12 @@
 
 </div>
 
+<% if @genre_count %>
+<div id="countTable">
+<p><%= report_relevant_totals %></p>
+</div>
+<% end %>
+
 <% if @result %>
 <div id="resultsTable">
 	<%= render :partial => "results_table", :locals => { :result => @result } %>

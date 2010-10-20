@@ -17,6 +17,7 @@ class BrowseController < ApplicationController
       return
     elsif @genre
       @result = Band.with_genre(@genre).order("name ASC")
+      @genre_count = @result.count
     end
   end
 
@@ -64,7 +65,7 @@ class BrowseController < ApplicationController
     end
     @city_count = Band.where(:city => @city).count
     @genre_city_count = @result.count if @genre
-    cache_this_page(360)
+    cache_this_page(43200) # 12 hours
   end
 
   def show
