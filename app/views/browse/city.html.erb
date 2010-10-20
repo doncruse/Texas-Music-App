@@ -1,8 +1,8 @@
 <div id="searchTable">
 <h1>Find a Texas Band</h1>
-<% form_tag({ :action => "city"}, :method => :post ) do %>
+<% form_tag({ :action => "filter"}, :method => :post ) do %>
 <p>Select a city:</p>
-<%= select_tag("city", options_for_select(@city_options, @city), :include_blank => true, :class => "table_form") %>
+<%= select_tag("city", options_for_select(@city_options, @city), :include_blank => false, :class => "table_form") %>
 <%= submit_tag "Focus on that City", :id => "submit", :name => "submit", :class => "table_form", :disabled => false %>
 <% end %>
 <% if @genre_cloud %>

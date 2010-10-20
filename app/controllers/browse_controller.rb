@@ -1,5 +1,6 @@
 class BrowseController < ApplicationController
-  before_filter :preload_dropdown_options, :only => [:index, :search, :city]
+  before_filter :preload_dropdown_options, :only => [:index, :search]
+  before_filter :preload_city_dropdown_only, :only => [:city]
 
   def index
     @city = nil
@@ -7,21 +8,13 @@ class BrowseController < ApplicationController
     @search_term = nil
     return unless request.post?
     
-    if params[:city] != ""
-      @city = params[:city]
-    end
-    if params[:genre] != ""
-      @genre = params[:genre]
-    elsif @city
-      # temporary until navitation is smarter --> this redirects you to /city
-      # if you have entered only a city but not a genre
-      redirect_to :action => :city, :city => @city
-      #return
-    end
+    process_city_and_genre_params
     if @city and @genre
-      @result = Band.in_city(@city).order("name ASC").joins(:genres) & Genre.where("genres.name = ?", @genre)
+      redirect_to :action => :city, :city => @city, :genre => @genre
+      return
     elsif @city
-      @result = Band.in_city(@city).order("name ASC")
+      redirect_to :action => :city, :city => @city
+      return
     elsif @genre
       @result = Band.with_genre(@genre).order("name ASC")
     end
@@ -39,12 +32,51 @@ class BrowseController < ApplicationController
     render :action => :index
   end
 
+  def filter
+    process_city_and_genre_params
+    if @city and @genre
+      redirect_to :action => :city, :city => @city, :genre => @genre
+      return
+    elsif @city
+      redirect_to :action => :city, :city => @city
+      return
+    elsif @genre
+      redirect_to :action => :index, :genre => @genre, "_method" => :post
+      return
+    else
+      redirect_to :action => :index
+      return
+    end
+  end
+
   # First, they select the city
   # That brings up a set of genre tags AND all the bands for the city
   # If they select a genre, then it reloads this page limited to that city and that genre
-  #     With that genre tag highlighted in the set of genre tags 
 
   def city
+    process_city_and_genre_params
+    return unless @city
+    @genre_cloud = Genre.scaled_count_in_city(@city)
+    if @genre
+      @result = Band.where(:city => @city).order("name ASC").joins(:genres) & Genre.where("genres.name = ?", @genre)
+    else
+      @result = Band.where(:city => @city).order("name ASC").includes(:band_links, :genres)
+    end
+    @city_count = Band.where(:city => @city).count
+    @genre_city_count = @result.count if @genre
+    cache_this_page(360)
+  end
+
+  def show
+  end
+
+protected
+
+  def cache_this_page(ttl = 3600)
+    response.headers['Cache-Control'] = "public, max-age=#{ttl}"
+  end
+
+  def process_city_and_genre_params
     @city = nil
     @genre = nil
     if params[:city] != ""
@@ -53,26 +85,15 @@ class BrowseController < ApplicationController
     if params[:genre] != ""
       @genre = params[:genre]
     end
-    return unless @city
-    @genre_cloud = Genre.scaled_count_in_city(@city)
-    if @genre
-      @result = Band.where(:city => @city).order("name ASC").joins(:genres) & Genre.where("genres.name = ?", @genre)
-    else
-      @result = Band.where(:city => @city).order("name ASC").includes(:band_links, :genres)
-    end
-    
-    @city_count = Band.where(:city => @city).count
-    @genre_city_count = @result.count if @genre
   end
-
-  def show
-  end
-
-protected
 
   def preload_dropdown_options
     @city_options = Band.select("DISTINCT city").map(&:city).sort
     @genre_options = Genre.select("DISTINCT name").map(&:name).sort
+  end
+  
+  def preload_city_dropdown_only
+    @city_options = Band.select("DISTINCT city").map(&:city).sort
   end
 
 end

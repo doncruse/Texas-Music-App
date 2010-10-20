@@ -13,11 +13,11 @@ module BrowseHelper
   end
 
   def genre_bands(genre, count)
-    count > 1 ? "#{genre} bands" : "#{genre} band"
+    count == 1 ? "#{genre} band" : "#{genre} bands"
   end
 
   def are_is(count)
-    count > 1 ? "are" : "is"
+    count == 1 ? "is" : "are"
   end
 
 end
